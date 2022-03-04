@@ -9,20 +9,31 @@
         <h4>@Model.Title</h4>
 
         <span class="badge bg-info" style="float:right">
-            @Model.Category
+            @Model.Isbn
         </span>
     </div>
 
     <ul>
         <li>Author: @Model.Author.</li>
         <li>Publisher: @Model.Publisher</li>
-        <li>ISBN: @Model.Isbn</li>
         <li>Classification: @Model.Classification</li>
-        <!--Or put category right here-->
+        <li>ISBN: @Model.Category</li>
         <li>PageCount: @Model.PageCount</li>
         <li>Price: @Model.Price</li>
     </ul>
+
+    @*When button is clicked, go to Cart page*@
+    <form method="post" asp-page="/Cart">
+       @*It is referencing a specific bookid, but we don't want to see it*@
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end">Add to Cart</button>
+        </span>
+    </form>
 </div>
-<br />
+
+
 
 
