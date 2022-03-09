@@ -20,6 +20,7 @@ namespace Mission07.Models
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
     }
 }
