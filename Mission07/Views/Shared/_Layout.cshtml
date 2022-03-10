@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mission07</title>
     <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand" m-lg-2>My Online Bookstore</span>
-
+        @*(in mission10, go on to float right)*@
+        <div class="bg-dark text-white p-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col navbar-brand">SPORTS STORE</div>
+                    <div class="col-6 text-right">
+                        <vc:cart-summary />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    
     <div class="row m-1 p-1">
 
         <div id="category" class="col-3">
