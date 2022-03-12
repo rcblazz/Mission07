@@ -1,0 +1,46 @@
+﻿@*Keep track of Shipped and Unshipped orders*@
+
+
+@page "/admin/orders"
+@inherits OwningComponentBase<ICartRepository>
+
+
+
+<OrderTable TableTitle="Unshipped Orders" Carts="UnshippedOrders"
+            ButtonLabel="Shipped" OrderSelected="ShipOrder"></OrderTable>
+
+<OrderTable TableTitle="Shipped Orders" Carts="ShippedOrders"
+            ButtonLabel="Reset" OrderSelected="ResetOrder"></OrderTable>
+
+<button class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</button>
+
+@code {
+
+    public ICartRepository repo => Service;
+
+    public IEnumerable<Cart> AllOrders { get; set; }
+    public IEnumerable<Cart> UnshippedOrders { get; set; }
+    public IEnumerable<Cart> ShippedOrders { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        AllOrders = await repo.Carts.ToListAsync();
+        UnshippedOrders = AllOrders.Where(x => !x.OrderReceived);
+        ShippedOrders = AllOrders.Where(x => x.OrderReceived);
+    }
+
+    public void ShipOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    private void UpdateOrder(int id, bool ordered)
+    {
+        Cart c = repo.Carts.FirstOrDefault(x => x.CartId == id);
+        c.OrderReceived = ordered; //refers to Cart.cs
+        repo.SaveCart(c); //Refers to ICartRepository
+    }
+}
