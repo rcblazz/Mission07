@@ -44,6 +44,8 @@ namespace Mission07.Controllers
                 }
             };
 
+            IdentitySeedData.num = IdentitySeedData.num + 1;
+
             return View(x);
         }
 
